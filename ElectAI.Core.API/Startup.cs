@@ -1,3 +1,6 @@
+using ElectAI.Core.API.Managers;
+using Newtonsoft.Json;
+
 namespace ElectAI.Core.API;
 
 public class Startup
@@ -12,7 +15,17 @@ public class Startup
     // This method gets called by the runtime. Use this method to add services to the container
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddControllers().AddNewtonsoftJson(options =>
+        {
+            options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+        });
+
+
         services.AddControllers();
+
+        services.AddScoped<ICountryManager,CountryDataManager>();
+
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
