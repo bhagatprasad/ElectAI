@@ -1,6 +1,6 @@
 ﻿using ElectAI.Core.API.Managers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace ElectAI.Core.API.Controllers
 {
@@ -9,9 +9,11 @@ namespace ElectAI.Core.API.Controllers
     public class CountryController : ControllerBase
     {
         private readonly ICountryManager _countryManager;
-        public CountryController(ICountryManager countryManager)
+        private readonly ILogger<CountryController> _logger;
+        public CountryController(ICountryManager countryManager, ILogger<CountryController> logger)
         {
             _countryManager = countryManager;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -20,10 +22,12 @@ namespace ElectAI.Core.API.Controllers
             try
             {
                 var response = await _countryManager.GetCountriesListAsync();
+                _logger.LogInformation("GetCountries... {Response}", JsonConvert.SerializeObject(response));
                 return Ok(response);
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "GetCountries failed");
                 return BadRequest(ex.Message);
             }
         }

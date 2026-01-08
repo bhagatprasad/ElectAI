@@ -1,5 +1,8 @@
 using ElectAI.Core.API.Managers;
+using log4net;
+using log4net.Config;
 using Newtonsoft.Json;
+using System.Reflection;
 
 namespace ElectAI.Core.API;
 
@@ -26,11 +29,20 @@ public class Startup
 
         services.AddScoped<ICountryManager,CountryDataManager>();
 
+        services.AddLogging(builder =>
+        {
+            builder.AddLog4Net("log4net.config"); // Points to your config file
+        });
+
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+        //var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+        //XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+
+
         if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
