@@ -2,7 +2,6 @@
 using ElectAI.Core.API.Constants;
 using Npgsql;
 using System.Data;
-using Microsoft.Extensions.Configuration;
 
 namespace ElectAI.Core.API.Managers
 {
