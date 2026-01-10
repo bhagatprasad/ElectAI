@@ -1,26 +1,22 @@
 <div class="layout">
-  <!-- Sidebar Component -->
   <app-sidebar
     [open]="sidebarOpen"
-    [collapsed]="sidebarCollapsed"
+    [collapsed]="desktopCollapsed"
     (closeSidebar)="closeSidebar()"
   ></app-sidebar>
 
-  <!-- Main Content Area -->
-  <div class="main" [class.shifted]="sidebarCollapsed && !isMobileView">
-    <!-- Header Component -->
+  <div class="main" [class.shifted]="desktopCollapsed && !isMobile()">
     <app-header (menuClick)="toggleSidebar()"></app-header>
 
-    <!-- Main Content with SINGLE router-outlet -->
     <main class="content">
+      <!-- ONLY router-outlet in the entire app -->
       <router-outlet></router-outlet>
     </main>
   </div>
 
-  <!-- Mobile Overlay -->
   <div
     class="overlay"
-    *ngIf="sidebarOpen && isMobileView"
+    *ngIf="sidebarOpen && isMobile()"
     (click)="closeSidebar()"
   ></div>
 </div>

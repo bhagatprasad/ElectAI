@@ -18,34 +18,28 @@
 }
 
 /* Desktop collapsed state shift */
-@media (min-width: 769px) {
-  .main.shifted {
-    margin-left: 70px;
-    width: calc(100% - 70px);
-  }
-  
+.main.shifted {
+  margin-left: 70px;
+  width: calc(100% - 70px);
+}
+
+/* Desktop expanded state */
+@media (min-width: 1025px) {
   .main:not(.shifted) {
     margin-left: 260px;
     width: calc(100% - 260px);
   }
 }
 
-/* Tablet state (768px - 1024px) - always collapsed */
+/* Tablet state (collapsed by default) */
 @media (min-width: 769px) and (max-width: 1024px) {
   .main {
-    margin-left: 70px !important;
-    width: calc(100% - 70px) !important;
+    margin-left: 70px;
+    width: calc(100% - 70px);
   }
 }
 
-/* Mobile state */
-@media (max-width: 768px) {
-  .main {
-    margin-left: 0 !important;
-    width: 100% !important;
-  }
-}
-
+/* Content area */
 .content {
   flex: 1;
   padding: 24px;
@@ -54,6 +48,7 @@
   min-height: calc(100vh - 64px);
 }
 
+/* Mobile overlay */
 .overlay {
   position: fixed;
   top: 0;
@@ -67,14 +62,20 @@
   cursor: pointer;
 }
 
+/* Animations */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
+/* Responsive content padding */
 @media (max-width: 768px) {
   .content {
     padding: 20px;
+  }
+  .main {
+    margin-left: 0 !important;
+    width: 100% !important;
   }
 }
 
