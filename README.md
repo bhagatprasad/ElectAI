@@ -321,8 +321,8 @@ Given your expertise:
 This architecture provides scalability, maintainability, and flexibility to expand globally. The microservices approach allows independent scaling of components, while the AI integration can start simple and grow sophisticated over time.
 
 Would you like me to elaborate on any specific component or provide implementation details for a particular module?
+<img width="8463" height="3144" alt="deepseek_mermaid_20260110_f69372" src="https://github.com/user-attachments/assets/8ab94918-5975-4907-95ad-b8a557926a7f" />
 
-![Uploading deepseek_mermaid_20260110_f69372.png…]()
 
 ┌─────────────────────────────────────────────────────────────────────┐
 │                      EXTERNAL USERS                                  │
