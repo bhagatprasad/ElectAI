@@ -322,20 +322,4 @@ This architecture provides scalability, maintainability, and flexibility to expa
 
 Would you like me to elaborate on any specific component or provide implementation details for a particular module?
 
-ElectAI.Core/
-├── docs/                           # Documentation
-├── scripts/                        # Build/deploy scripts
-├── infrastructure/                  # IaC (Terraform/Bicep)
-├── tests/                          # Integration/e2e tests
-├── src/                            # Source code
-│   ├── ElectAI.Core.UI/           # Angular Frontend
-│   ├── ElectAI.Core.API/          # .NET 8 API Gateway
-│   ├── ElectAI.Core.DB/           # Database & Migrations
-│   ├── ElectAI.Core.AI/           # FastAPI AI Services
-│   ├── ElectAI.Core.Common/       # Shared libraries
-│   ├── ElectAI.Core.Analytics/    # Analytics engine
-│   ├── ElectAI.Core.Integrations/ # External integrations
-│   └── ElectAI.Core.Mobile/       # React Native mobile
-├── docker-compose.yml
-├── .env.example
-└── README.md
+![Uploading deepseek_mermaid_20260110_f69372.png…]()
