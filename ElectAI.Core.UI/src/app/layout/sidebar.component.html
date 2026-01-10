@@ -1,0 +1,52 @@
+<aside class="sidebar" [class.open]="open" [class.collapsed]="collapsed">
+  <!-- Sidebar Header with Logo -->
+  <div class="sidebar-header">
+    <div class="logo">
+      <div class="logo-icon-border">
+        <span class="logo-icon">⚡</span>
+      </div>
+      <span class="logo-text">ElectAI</span>
+    </div>
+    
+    <!-- Close button for mobile -->
+    <button class="close-btn" (click)="close()" *ngIf="open" aria-label="Close menu">
+      <span>✕</span>
+    </button>
+  </div>
+
+  <!-- Simple Navigation -->
+  <nav class="sidebar-nav">
+    <a routerLink="/dashboard" routerLinkActive="active">
+      <span class="nav-icon">📊</span>
+      <span class="nav-text">Dashboard</span>
+    </a>
+    
+    <a routerLink="/elections" routerLinkActive="active">
+      <span class="nav-icon">🗳</span>
+      <span class="nav-text">Elections</span>
+    </a>
+    
+    <div class="menu-group">
+      <div class="group-header">
+        <span class="group-icon">🎮</span>
+        <span class="group-text">Games</span>
+      </div>
+      
+      <div class="group-items">
+        <a routerLink="/cricket" routerLinkActive="active">
+          <span class="nav-icon">🏏</span>
+          <span class="nav-text">Cricket</span>
+        </a>
+        <a routerLink="/football" routerLinkActive="active">
+          <span class="nav-icon">⚽</span>
+          <span class="nav-text">Football</span>
+        </a>
+      </div>
+    </div>
+    
+    <a routerLink="/events" routerLinkActive="active">
+      <span class="nav-icon">📡</span>
+      <span class="nav-text">Ongoing Events</span>
+    </a>
+  </nav>
+</aside>

@@ -16,23 +16,11 @@
             "outputPath": "dist/elect-ai.core.ui",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.css"],
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -48,24 +36,34 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "server": "src/main.server.ts",
+              "prerender": true,
+              "ssr": { "entry": "server.ts" }
             },
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "port": 4200,
+            "host": "localhost",
+            "poll": 1000
+          },
           "configurations": {
             "production": {
               "buildTarget": "ElectAI.Core.UI:build:production"
             },
             "development": {
-              "buildTarget": "ElectAI.Core.UI:build:development"
+              "buildTarget": "ElectAI.Core.UI:build:development",
+              "poll": 1000
             }
           },
           "defaultConfiguration": "development"
@@ -79,22 +77,20 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.css"],
             "scripts": []
           }
         }
       }
+    }
+  },
+  "cli": {
+    "analytics": "71466aed-efa2-4557-8f79-9374dce8888d",
+    "cache": {
+      "enabled": true
     }
   }
 }

@@ -1,0 +1,26 @@
+<header class="topbar">
+  <button class="menu-btn" (click)="menuClick.emit()" aria-label="Toggle sidebar menu">
+    <span class="menu-icon">☰</span>
+    <span class="menu-text">Menu</span>
+  </button>
+
+  <div class="title-block">
+    <h5>AI Prediction & Analysis</h5>
+    <small>Real-time insights powered by AI</small>
+  </div>
+
+  <div class="header-right">
+    <select class="country">
+      <option value="IN">🇮🇳 India</option>
+      <option value="US">🇺🇸 USA</option>
+      <option value="GB">🇬🇧 UK</option>
+      <option value="AU">🇦🇺 Australia</option>
+    </select>
+    
+    <!-- Remove *ngIf, use CSS instead -->
+    <div class="collapse-hint" title="Click menu to toggle collapse">
+      <span class="hint-icon">↔</span>
+      <span class="hint-text">Collapse</span>
+    </div>
+  </div>
+</header>
