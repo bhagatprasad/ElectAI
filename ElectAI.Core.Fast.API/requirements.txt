@@ -21,3 +21,5 @@ tenacity>=8.2.3
 
 # Optional cache
 redis>=5.0.1
+
+feedparser
