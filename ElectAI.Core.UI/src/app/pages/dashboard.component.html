@@ -1,27 +1,208 @@
-<h1>Overview</h1>
+<h1 class="section-title">Top News</h1>
+<section class="news-section mb-5">
+  <div class="news-grid">
+    <article class="news-card" *ngFor="let article of articles">
+      <a [href]="article.link" target="_blank" class="image-wrapper">
+        <img *ngIf="article.image_url" [src]="article.image_url" alt="News image" />
+      </a>
+      <div class="news-content">
+        <h2 class="news-title">
+          <a [href]="article.link" target="_blank">{{ article.title }}</a>
+        </h2>
+        <p class="news-description">
+          {{ article.description ? (article.description | slice:0:160) + (article.description.length > 160 ? '…' : '') :
+          'No description available' }}
+        </p>
+        <div class="news-meta">
+          <span>{{ article.source_name }}</span> •
+          <span>{{ article.pubDate | date:'mediumDate' }}</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
 
-<div class="dashboard-grid">
-  <div class="card">
-    <h3>Active Predictions</h3>
-    <div class="value">42</div>
-    <p>Across elections & sports</p>
+<!-- 🟦 BUSINESS RSS FEEDS: Separate Sections with Virtual Scroll -->
+<section class="rss-section">
+
+  <!-- Economic Times Feed -->
+  <div class="rss-feed" *ngIf="economicTimes.length > 0" data-feed="economicTimes">
+    <h2><i class="fas fa-chart-line"></i> Economic Times</h2>
+    <div class="rss-feed-content">
+      <div class="feed-meta">
+        <span class="feed-count">{{ economicTimes.length }} articles</span>
+        <span class="feed-updated">Updated recently</span>
+      </div>
+      
+      <div class="virtual-scroll-container" [style.height.px]="getContainerHeight(economicTimes.length, showAllEconomicTimes)">
+        <div class="virtual-scroll-content">
+          <div *ngFor="let n of getVisibleItems(economicTimes, 'economicTimes'); trackBy: trackByFn; let i = index">
+            <div class="news-item-wrapper">
+              <a [href]="n.link" target="_blank" class="virtual-scroll-item">
+                <div class="news-title">{{ n.title }}</div>
+                <div *ngIf="n.published" class="news-meta">
+                  <i class="fas fa-clock"></i>
+                  <span class="news-time">{{ n.published }}</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div *ngIf="economicTimes.length > 10" class="load-more-container">
+        <button class="load-more-btn" (click)="toggleViewMore('economicTimes')">
+          {{ showAllEconomicTimes ? 'Show Less' : 'View More (' + economicTimes.length + ' articles)' }}
+        </button>
+        <div class="view-toggle-info">
+          Showing {{ showAllEconomicTimes ? economicTimes.length : (economicTimes.length > 10 ? 10 : economicTimes.length) }} of {{ economicTimes.length }} articles
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="card">
-    <h3>Model Accuracy</h3>
-    <div class="value">91.6%</div>
-    <p>Last 6 months</p>
+  <!-- Mint Feed -->
+  <div class="rss-feed" *ngIf="mint.length > 0" data-feed="mint">
+    <h2><i class="fas fa-coins"></i> Mint</h2>
+    <div class="rss-feed-content">
+      <div class="feed-meta">
+        <span class="feed-count">{{ mint.length }} articles</span>
+        <span class="feed-updated">Updated recently</span>
+      </div>
+      
+      <div class="virtual-scroll-container" [style.height.px]="getContainerHeight(mint.length, showAllMint)">
+        <div class="virtual-scroll-content">
+          <div *ngFor="let n of getVisibleItems(mint, 'mint'); trackBy: trackByFn; let i = index">
+            <div class="news-item-wrapper">
+              <a [href]="n.link" target="_blank" class="virtual-scroll-item">
+                <div class="news-title">{{ n.title }}</div>
+                <div *ngIf="n.published" class="news-meta">
+                  <i class="fas fa-clock"></i>
+                  <span class="news-time">{{ n.published }}</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div *ngIf="mint.length > 10" class="load-more-container">
+        <button class="load-more-btn" (click)="toggleViewMore('mint')">
+          {{ showAllMint ? 'Show Less' : 'View More (' + mint.length + ' articles)' }}
+        </button>
+        <div class="view-toggle-info">
+          Showing {{ showAllMint ? mint.length : (mint.length > 10 ? 10 : mint.length) }} of {{ mint.length }} articles
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="card">
-    <h3>Live Signals</h3>
-    <div class="value">128</div>
-    <p>Social, polling & stats</p>
+  <!-- Business Standard Feed -->
+  <div class="rss-feed" *ngIf="businessStandard.length > 0" data-feed="businessStandard">
+    <h2><i class="fas fa-briefcase"></i> Business Standard</h2>
+    <div class="rss-feed-content">
+      <div class="feed-meta">
+        <span class="feed-count">{{ businessStandard.length }} articles</span>
+        <span class="feed-updated">Updated recently</span>
+      </div>
+      
+      <div class="virtual-scroll-container" [style.height.px]="getContainerHeight(businessStandard.length, showAllBusinessStandard)">
+        <div class="virtual-scroll-content">
+          <div *ngFor="let n of getVisibleItems(businessStandard, 'businessStandard'); trackBy: trackByFn; let i = index">
+            <div class="news-item-wrapper">
+              <a [href]="n.link" target="_blank" class="virtual-scroll-item">
+                <div class="news-title">{{ n.title }}</div>
+                <div *ngIf="n.published" class="news-meta">
+                  <i class="fas fa-clock"></i>
+                  <span class="news-time">{{ n.published }}</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div *ngIf="businessStandard.length > 10" class="load-more-container">
+        <button class="load-more-btn" (click)="toggleViewMore('businessStandard')">
+          {{ showAllBusinessStandard ? 'Show Less' : 'View More (' + businessStandard.length + ' articles)' }}
+        </button>
+        <div class="view-toggle-info">
+          Showing {{ showAllBusinessStandard ? businessStandard.length : (businessStandard.length > 10 ? 10 : businessStandard.length) }} of {{ businessStandard.length }} articles
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="card">
-    <h3>Confidence Level</h3>
-    <div class="value">High</div>
-    <p>AI Consensus</p>
+  <!-- Moneycontrol Feed -->
+  <div class="rss-feed" *ngIf="moneycontrol.length > 0" data-feed="moneycontrol">
+    <h2><i class="fas fa-chart-bar"></i> Moneycontrol</h2>
+    <div class="rss-feed-content">
+      <div class="feed-meta">
+        <span class="feed-count">{{ moneycontrol.length }} articles</span>
+        <span class="feed-updated">Updated recently</span>
+      </div>
+      
+      <div class="virtual-scroll-container" [style.height.px]="getContainerHeight(moneycontrol.length, showAllMoneycontrol)">
+        <div class="virtual-scroll-content">
+          <div *ngFor="let n of getVisibleItems(moneycontrol, 'moneycontrol'); trackBy: trackByFn; let i = index">
+            <div class="news-item-wrapper">
+              <a [href]="n.link" target="_blank" class="virtual-scroll-item">
+                <div class="news-title">{{ n.title }}</div>
+                <div *ngIf="n.published" class="news-meta">
+                  <i class="fas fa-clock"></i>
+                  <span class="news-time">{{ n.published }}</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div *ngIf="moneycontrol.length > 10" class="load-more-container">
+        <button class="load-more-btn" (click)="toggleViewMore('moneycontrol')">
+          {{ showAllMoneycontrol ? 'Show Less' : 'View More (' + moneycontrol.length + ' articles)' }}
+        </button>
+        <div class="view-toggle-info">
+          Showing {{ showAllMoneycontrol ? moneycontrol.length : (moneycontrol.length > 10 ? 10 : moneycontrol.length) }} of {{ moneycontrol.length }} articles
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+
+  <!-- NDTV Profit Feed -->
+  <div class="rss-feed" *ngIf="ndtvProfit.length > 0" data-feed="ndtvProfit">
+    <h2><i class="fas fa-tv"></i> NDTV Profit</h2>
+    <div class="rss-feed-content">
+      <div class="feed-meta">
+        <span class="feed-count">{{ ndtvProfit.length }} articles</span>
+        <span class="feed-updated">Updated recently</span>
+      </div>
+      
+      <div class="virtual-scroll-container" [style.height.px]="getContainerHeight(ndtvProfit.length, showAllNdtvProfit)">
+        <div class="virtual-scroll-content">
+          <div *ngFor="let n of getVisibleItems(ndtvProfit, 'ndtvProfit'); trackBy: trackByFn; let i = index">
+            <div class="news-item-wrapper">
+              <a [href]="n.link" target="_blank" class="virtual-scroll-item">
+                <div class="news-title">{{ n.title }}</div>
+                <div *ngIf="n.published" class="news-meta">
+                  <i class="fas fa-clock"></i>
+                  <span class="news-time">{{ n.published }}</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div *ngIf="ndtvProfit.length > 10" class="load-more-container">
+        <button class="load-more-btn" (click)="toggleViewMore('ndtvProfit')">
+          {{ showAllNdtvProfit ? 'Show Less' : 'View More (' + ndtvProfit.length + ' articles)' }}
+        </button>
+        <div class="view-toggle-info">
+          Showing {{ showAllNdtvProfit ? ndtvProfit.length : (ndtvProfit.length > 10 ? 10 : ndtvProfit.length) }} of {{ ndtvProfit.length }} articles
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
